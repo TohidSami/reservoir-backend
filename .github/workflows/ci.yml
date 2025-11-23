@@ -6,7 +6,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    # 👇 اضافه کردن سرویس دیتابیس (مثل فایل docker-compose)
+    # 👇docker-compose)
     services:
       db:
         image: postgres:14
@@ -16,7 +16,7 @@ jobs:
           POSTGRES_DB: res_db
         ports:
           - 5432:5432
-        # چک کردن اینکه دیتابیس کامل روشن شده باشد
+      # check db
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -35,12 +35,9 @@ jobs:
       run: |
         pip install -r requirements.txt
 
-    # 👇 اضافه کردن متغیر محیطی تا پایتون بداند به کجا وصل شود
     - name: Run Tests
       env:
-        DATABASE_URL: postgresql://postgres:123456@localhost:5432/res_db
+        DATABASE_URL: postgresql://postgres:123456@127.0.0.1:5432/res_db
       run: |
-        # اول جداول را میسازیم (چون دیتابیس گیت‌هاب خام است)
         python init_db.py
-        # حالا تست‌ها را اجرا میکنیم
         pytest -v

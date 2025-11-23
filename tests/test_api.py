@@ -13,7 +13,9 @@ def client():
 def test_wells(client):
     response = client.get('/api/wells')
     
-    assert response.status_code == 200
+    if response.status_code != 200:
+        print(f"\n🔴 API Error: {response.get_data(as_text=True)}")
+    assert response.status_code == 200    
     assert isinstance(response.json, list)
     print("\n✅")
 
