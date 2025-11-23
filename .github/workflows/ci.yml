@@ -1,23 +1,46 @@
 name: Reservoir CI Pipeline
 
-
 on: [push]
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
+
+    # 👇 اضافه کردن سرویس دیتابیس (مثل فایل docker-compose)
+    services:
+      db:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 123456
+          POSTGRES_DB: res_db
+        ports:
+          - 5432:5432
+        # چک کردن اینکه دیتابیس کامل روشن شده باشد
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
     - name: Install Dependencies
       run: |
-        pip install -r req.txt
+        pip install -r requirements.txt
 
+    # 👇 اضافه کردن متغیر محیطی تا پایتون بداند به کجا وصل شود
     - name: Run Tests
+      env:
+        DATABASE_URL: postgresql://postgres:123456@localhost:5432/res_db
       run: |
+        # اول جداول را میسازیم (چون دیتابیس گیت‌هاب خام است)
+        python init_db.py
+        # حالا تست‌ها را اجرا میکنیم
         pytest -v
