@@ -1,0 +1,34 @@
+### 1. CREATE a new well (Well-D4)
+# This sends a POST request to create a new well.
+POST http://127.0.0.1:5000/api/wells
+Content-Type: application/json
+
+# {
+#     "well_name": "Well-A1",
+#     "uwi": "UWI-001",
+#     "field_name": "Ahvaz",
+#     "latitude": 31.3200,
+#     "longitude": 48.6500,
+#     "kb_elevation": 150.0
+# }
+# {
+#     "well_name": "Well-B2",
+#     "uwi": "UWI-002",
+#     "field_name": "Marun",
+#     "latitude": 30.8500,
+#     "longitude": 49.1200,
+#     "kb_elevation": 145.5
+# }
+{
+    "well_name": "Well-C13",
+    "uwi": "UWI-003",
+    "field_name": "Gachsaran",
+    "latitude": 30.2000,
+    "longitude": 50.5000,
+    "kb_elevation": 210.0
+}
+### --------------------------------------
+
+### 2. GET all wells
+# This checks if the new well was added successfully.
+GET http://127.0.0.1:5000/api/wells

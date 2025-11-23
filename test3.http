@@ -1,0 +1,19 @@
+### --------------------------------------
+
+#POST http://127.0.0.1:5000/127.0.0.1:5000/api/wells
+GET http://127.0.0.1:5000/api/wells
+
+### 7. PARTIALLY UPDATE well_id 3 (PATCH)
+# This sends a PATCH request to change ONLY the field_name
+PATCH http://127.0.0.1:5000/api/wells/6
+Content-Type: application/json
+
+{
+    "field_name": "GACH"
+}
+
+### --------------------------------------
+
+### 8. GET well_id 3 (to check the patch)
+# Check if ONLY the field_name changed, and other data remained.
+GET http://127.0.0.1:5000/api/wells/4

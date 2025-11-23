@@ -1,0 +1,35 @@
+### --------------------------------------
+
+### 3. UPDATE well_id 4
+# This sends a PUT request to change the field_name
+PUT http://127.0.0.1:5000/api/wells/4
+Content-Type: application/json
+
+{
+    "well_name": "Well-D4 (Edited)",
+    "uwi": "UWI-004-MODIFIED",
+    "field_name": "Masjed Soleyman",
+    "latitude": 31.5555,
+    "longitude": 48.8888,
+    "kb_elevation": 180.0
+}
+
+### --------------------------------------
+
+### 4. GET a single well (to check the update)
+# Let's check if well 4 was really updated
+GET http://127.0.0.1:5000/api/wells/1
+
+
+### --------------------------------------
+
+### 5. DELETE well_id 4
+# This sends a DELETE request
+DELETE http://127.0.0.1:5000/api/wells/1
+
+
+### --------------------------------------
+
+### 6. GET all wells (to check the delete)
+# The list should now only have 3 wells
+GET http://127.0.0.1:5000/api/wells

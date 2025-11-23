@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+
+  web:
+    build: .              
+    ports:
+      - "5000:5000"       
+    depends_on:
+      - db                
+    environment:
+
+      - DATABASE_URL=postgresql://postgres:123456@db:5432/res_db
+
+ 
+  db:
+    image: postgres:14    
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: res_db
+    ports:
+      - "5433:5432"     
+    volumes:
+      - postgres_data:/var/lib/postgresql/data 
+
+volumes:
+  postgres_data:

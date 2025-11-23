@@ -1,0 +1,21 @@
+# Virtual Environment
+nenv/
+venv/
+env/
+
+# Python compiled files
+__pycache__/
+*.py[cod]
+
+# Database files (Volume data)
+postgres_data/
+
+# Environment Variables (Secrets)
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
